@@ -1,7 +1,7 @@
 {
-  "name": "opinionated.nvim",
+  "name": "thehighway.nvim",
   "version": "1.0.0",
-  "description": "Opinionated Neovim functions",
+  "description": "Opinionated Neovim functions. My way IS the highway.",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",

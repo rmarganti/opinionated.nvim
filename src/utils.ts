@@ -25,7 +25,7 @@ export function testPathForSource(sourcePath: string) {
 
 /**
  * Given a file path, ensure its parent directory
- * and all necessary directoris exist.
+ * and all necessary ancestory directories exist.
  */
 export function ensureDirExistsForFile(sourcePath: string) {
     const dir = path.dirname(sourcePath);
@@ -61,10 +61,28 @@ function phpPath(sourcePath: string) {
     }
 
     const appRoot = path.join(projectRoot, 'app');
-    const baseDir = dir.replace(appRoot, '');
+    const relativeDir = dir.replace(appRoot, '');
     const testFileName = `${name}Test.php`;
 
-    return path.join(projectRoot, 'tests/unit', baseDir, testFileName);
+    const integrationPath = path.join(
+        projectRoot,
+        'tests/integration',
+        relativeDir,
+        testFileName
+    );
+
+    const unitPath = path.join(
+        projectRoot,
+        'tests/unit',
+        relativeDir,
+        testFileName
+    );
+
+    if (fs.existsSync(integrationPath)) {
+        return integrationPath;
+    }
+
+    return unitPath;
 }
 
 /**

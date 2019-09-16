@@ -11,11 +11,31 @@ describe('testPathForSource', () => {
         expect(result).toEqual(expected);
     });
 
-    it('determines the correct path for a PHP test', () => {
-        const input = path.join(process.cwd(), '__tests__/php/app/Example.php');
+    it('determines the correct path for a not already existing PHP test', () => {
+        const input = path.join(
+            process.cwd(),
+            '__tests__/php/app/Domain/DoesntHaveTest.php'
+        );
+
         const expected = path.join(
             process.cwd(),
-            '__tests__/php/tests/unit/ExampleTest.php'
+            '__tests__/php/tests/unit/Domain/DoesntHaveTestTest.php'
+        );
+
+        const result = testPathForSource(input);
+
+        expect(result).toEqual(expected);
+    });
+
+    it('determines the correct path for an already existing PHP test', () => {
+        const input = path.join(
+            process.cwd(),
+            '__tests__/php/app/Domain/HasTest.php'
+        );
+
+        const expected = path.join(
+            process.cwd(),
+            '__tests__/php/tests/integration/Domain/HasTestTest.php'
         );
 
         const result = testPathForSource(input);

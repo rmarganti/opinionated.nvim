@@ -5,14 +5,14 @@ import { ensureDirExistsForFile, testPathForSource } from './utils';
 class Testy {
     constructor(private nvim: Neovim) {}
 
-    @Command('OpinionatedEditTest')
+    @Command('TheHighwayEditTest')
     async editTest() {
         const bufferName = await this.nvim.buffer.name;
         const testPath = testPathForSource(bufferName);
 
         if (!testPath) {
             this.nvim.command(
-                'echomsg Unable to determine correct path for test file.'
+                'echomsg "Unable to determine correct path for test file."'
             );
 
             return;
